@@ -22,21 +22,55 @@ class App extends React.Component {
       );
       const data = await api_url.json();
       console.log(data);
-      this.setState({
-        temp: data.main.temp,
-        city: data.name,
-        country: data.sys.country,
-        error: undefined,
-      });
+      if (data && data.main && data.main.temp) {
+        this.setState({
+          temp: data.main.temp,
+          city: data.name,
+          country: data.sys.country,
+          error: undefined,
+        });
+      } else {
+        this.setState({
+          temp: undefined,
+          city: undefined,
+          country: undefined,
+          error: "Сity is not entered",
+        });
+      }
     } else {
       this.setState({
         temp: undefined,
         city: undefined,
         country: undefined,
-        error: "Сity is not entered",
+        error: " not ",
       });
     }
   };
+  // getWeather = async (event) => {
+  //   event.preventDefault();
+  //   const city = event.target.elements.city.value;
+
+  //   if (city) {
+  //     const api_url = await fetch(
+  //       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_OPENWEATHER_KEY}&units=metric`
+  //     );
+  //     const data = await api_url.json();
+  //     console.log(data);
+  //     this.setState({
+  //       temp: data.main.temp,
+  //       city: data.name,
+  //       country: data.sys.country,
+  //       error: undefined,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       temp: undefined,
+  //       city: undefined,
+  //       country: undefined,
+  //       error: "Сity is not entered",
+  //     });
+  //   }
+  // };
   render() {
     return (
       <div className="container">
